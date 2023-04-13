@@ -1,0 +1,53 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\User;
+use Yajra\DataTables\DataTables;
+
+class UserService extends Repository
+{
+
+    public function __construct()
+    {
+        $this->model = new User;
+    }
+
+    public function update(array $data, $id)
+    {
+        if($data['password']!=null) {
+            $data['password'] = bcrypt($data['password']);
+        }else{
+            unset($data['password']);
+        }
+        $this->model->find($id)->update($data);
+    }
+
+    public function store(array $data)
+    {
+        if($data['password']!=null) {
+            $data['password'] = bcrypt($data['password']);
+        }else{
+            unset($data['password']);
+        }
+        $this->model->create($data);
+    }
+
+    public function dataTable()
+    {
+        return DataTables::of($this->model->all()->sortByDesc('created_at'))
+            ->addColumn('role_id', function ($data) {
+                return $data->role->name;
+            })
+            ->addColumn('action', function ($data) {
+                return '<a href="' . route('user.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen-alt"></i></a>
+                        <form action="' . route('user.destroy', $data->id) . '" method="POST" class="d-inline">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="' . csrf_token() . '">
+                            <button class="btn btn-danger btn-sm" onclick="return confirm(\'are yous sure?\')"><i class="fas fa-trash-alt"></i></button>
+                        </form>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+}
