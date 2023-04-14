@@ -12,7 +12,7 @@ class HomeController extends Controller
         if (Auth::user()->role_id==1) {
             return redirect()->route('donatur.index');
         } else {
-            return abort(403);
+            return redirect()->route('user.show',Auth::user());
         }
 
     }

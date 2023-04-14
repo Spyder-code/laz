@@ -24,9 +24,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('/donatur-export', [App\Http\Controllers\DonaturController::class, 'export'])->name('donatur.export');
     Route::resource('label',App\Http\Controllers\LabelController::class);
     Route::resource('donatur',App\Http\Controllers\DonaturController::class);
-    Route::resource('user',App\Http\Controllers\UserController::class);
+    Route::resource('user',App\Http\Controllers\UserController::class)->except('show');
 });
+Route::resource('user',App\Http\Controllers\UserController::class)->only('show');

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-class Club
+class Fundraiser
 {
     /**
      * Handle an incoming request.
@@ -20,10 +20,10 @@ class Club
     public function handle(Request $request, Closure $next)
     {
 //        return $next($request);
-        if (Auth::user()->role_id === 2) {
+        if (Auth::user()->role_id == 2) {
             return $next($request);
         } else {
-            abort(403);
+            return back();
         }
     }
 

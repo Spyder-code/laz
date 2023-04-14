@@ -15,7 +15,12 @@ class DonaturService extends Repository
 
     public function dataTable()
     {
-        return DataTables::of($this->model->all())
+        if(request('user_id')){
+            $data = $this->model->all()->where('user_id',request('user_id'));
+        }else{
+            $data = $this->model->all();
+        }
+        return DataTables::of($data)
             ->addColumn('label_id', function($data){
                 return '<div class="px-3 py-2" style="border:1px solid '.$data->label->warna.'; color: '.$data->label->warna.'; border-radius:10px;">'.$data->label->nama.'</div>';
             })

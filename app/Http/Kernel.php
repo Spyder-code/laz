@@ -87,7 +87,7 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'verified' => EnsureEmailIsVerified::class,
-        'club' => Club::class,
+        'fundraiser' => Fundraiser::class,
         'admin' => Admin::class,
     ];
 }

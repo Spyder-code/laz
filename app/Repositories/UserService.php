@@ -39,8 +39,15 @@ class UserService extends Repository
             ->addColumn('role_id', function ($data) {
                 return $data->role->name;
             })
+            ->addColumn('created_at', function($data){
+                return date('d/m/Y H:i',strtotime($data->created_at));
+            })
+            ->addColumn('updated_at', function($data){
+                return date('d/m/Y H:i',strtotime($data->updated_at));
+            })
             ->addColumn('action', function ($data) {
                 return '<a href="' . route('user.edit', $data->id) . '" class="btn btn-primary btn-sm"><i class="fas fa-pen-alt"></i></a>
+                        <a href="' . route('user.show', $data->id) . '" class="btn btn-warning btn-sm"><i class="fas fa-users"></i></a>
                         <form action="' . route('user.destroy', $data->id) . '" method="POST" class="d-inline">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="' . csrf_token() . '">

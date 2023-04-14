@@ -11,6 +11,7 @@ class CreateDonaturTable extends Migration
         Schema::create('donatur', function (Blueprint $table) {
             $table->id();
             $table->foreignId('label_id')->nullable()->default(1)->constrained('label');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->string('nama');
             $table->string('email')->nullable();
             $table->string('alamat');
