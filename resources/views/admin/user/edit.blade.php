@@ -14,7 +14,7 @@
                 </div>
                 <input type="hidden" name="id" value="{{ $user->id }}">
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('user.index') }}" data-theme="light" class="btn btn-bg-secondary btn-active-color-primary">Back</a>
+                    <a href="{{ route('home') }}" data-theme="light" class="btn btn-bg-secondary btn-active-color-primary">Back</a>
                     <button type="submit" class="btn btn-primary">
                         <span class="indicator-label">Save</span>
                     </button>

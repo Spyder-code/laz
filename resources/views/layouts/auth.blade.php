@@ -8,7 +8,7 @@
 		<link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
 		<link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link rel="icon" type="image/x-icon" href="{{ asset('images/logo.png') }}">
-        <meta name="description" content="Ayo salurkan zakat di Nurul Falah"/>
+        <meta name="description" content="Ayo tebar kebaikan dengan jadi Donatur di Nurul Falah"/>
         <style>
             body{
                 background-image: url('images/home.jpg');

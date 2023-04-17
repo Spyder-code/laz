@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use App\Repositories\DonaturService;
 use App\Repositories\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private $userService;
-    public function __construct(UserService $userService)
+    private $userService, $donaturService;
+    public function __construct(UserService $userService, DonaturService $donaturService)
     {
         $this->userService = $userService;
+        $this->donaturService = $donaturService;
     }
 
     public function index()
@@ -41,7 +43,14 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return view('admin.user.donatur', compact('user'));
+        $donatur = $this->donaturService->getAvailable();
+        return view('admin.user.donatur', compact('user','donatur'));
+    }
+
+    public function addDonatur(Request $request, User $user)
+    {
+        $this->userService->addDonatur($request->all(),$user->id);
+        return back()->with('success','Donatur berhasil ditambahkan');
     }
 
 
@@ -59,7 +68,7 @@ class UserController extends Controller
             ]);
         }
         $this->userService->update($request->all(), $user->id);
-        return redirect()->route('user.index')->with('success', 'User updated successfully');
+        return back()->with('success', 'User updated successfully');
     }
 
 

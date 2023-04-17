@@ -25,6 +25,7 @@
                     <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                         <th class="min-w-125px">ID</th>
                         <th class="min-w-125px">Label</th>
+                        <th class="min-w-125px">Fundraiser</th>
                         <th class="min-w-125px">Nama</th>
                         <th class="min-w-125px">Email</th>
                         <th class="min-w-125px">Alamat</th>
@@ -46,10 +47,14 @@
     let table = $('.table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{!! route('donatur.data') !!}',
+        ajax: {
+            url:'{!! route('donatur.data') !!}',
+            data:{type:'{!! request('type') !!}'}
+        },
         columns: [
             { data: 'id', name: 'id' },
             { data: 'label_id', name: 'label_id' },
+            { data: 'fundraiser', name: 'users.name' },
             { data: 'nama', name: 'nama' },
             { data: 'email', name: 'email' },
             { data: 'alamat', name: 'alamat' },

@@ -1,28 +1,39 @@
 @php
-    $init = [
-        [
-            'title' => 'Dashboard',
-            'link' => route('home'),
-            'sub' => false
-        ],
-        [
-            'title' => 'Donatur Management',
-            'sub'=>[
-                [
-                    'title' => 'Donatur',
-                    'link' => route('donatur.index'),
-                ],
-                [
-                    'title' => 'Data Label',
-                    'link' => route('label.index'),
-                ]
+    $init = [];
+    if (Auth::user()->role_id==1) {
+        $init = [
+            [
+                'title' => 'Dashboard',
+                'link' => route('home'),
+                'sub' => false
             ],
-        ],[
-            'title' => 'User Management',
-            'link' => route('user.index'),
-            'sub' => false
-        ],
-    ]
+            [
+                'title' => 'Donatur Management',
+                'sub'=>[
+                    [
+                        'title' => 'List Semua Donatur',
+                        'link' => route('donatur.index'),
+                    ],
+                    [
+                        'title' => 'Donatur Dengan Fundraiser',
+                        'link' => route('donatur.index',['type'=>'user_id_not_null']),
+                    ],
+                    [
+                        'title' => 'Donatur Tanpa Fundraiser',
+                        'link' => route('donatur.index',['type'=>'user_id_null']),
+                    ],
+                    [
+                        'title' => 'Data Label',
+                        'link' => route('label.index'),
+                    ]
+                ],
+            ],[
+                'title' => 'User Management',
+                'link' => route('user.index'),
+                'sub' => false
+            ],
+        ];
+    }
 @endphp
 
 <div class="d-flex align-items-stretch" id="kt_header_nav">

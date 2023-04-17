@@ -59,8 +59,12 @@ class DonaturController extends Controller
 
     public function destroy(Donatur $donatur)
     {
-        $this->donaturService->destroy($donatur->id);
-        return redirect()->route('donatur.index')->with('success','Donatur has success deleted');
+        if(request('user_id')&&is_numeric(request('user_id'))){
+            $this->donaturService->pullUser($donatur->id);
+        }else{
+            $this->donaturService->destroy($donatur->id);
+        }
+        return back()->with('success','Donatur has success deleted');
     }
 
     public function export(Request $request)
